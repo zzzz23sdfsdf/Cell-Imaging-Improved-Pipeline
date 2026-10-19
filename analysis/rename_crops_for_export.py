@@ -193,8 +193,8 @@ def rename_crops_for_export(base_path, experiment_prefix=None, input_csv=None,
             num_skipped += 1
             continue
 
-        # Find the original file (should be named like "cell_001_crop.tif")
-        original_filename = f"cell_{str(cell_number).zfill(3)}_crop.tif"
+        # Find the original file (named like "cell_0001_crop.tif")
+        original_filename = f"cell_{str(cell_number).zfill(4)}_crop.tif"
         original_path = crop_dir / original_filename
 
         if not original_path.exists():

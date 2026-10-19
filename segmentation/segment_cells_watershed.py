@@ -138,7 +138,7 @@ def export_cell_rois(image, labeled_mask, regions, base_dir):
         single_cell_mask = (labeled_mask == region.label).astype(np.uint8) * 255
 
         # Save each cell as separate binary image
-        roi_path = os.path.join(roi_dir, f'cell_{i+1:02d}.tif')
+        roi_path = os.path.join(roi_dir, f'cell_{i+1:04d}.tif')
 
         # Suppress low contrast warnings
         import warnings
@@ -169,7 +169,7 @@ def export_raw_crops(image, bboxes, base_dir):
             continue
 
         # Save as numbered files for easier sorting
-        save_path = os.path.join(raw_crops_dir, f'cell_{i+1:02d}.tif')
+        save_path = os.path.join(raw_crops_dir, f'cell_{i+1:04d}.tif')
         io.imsave(save_path, cropped.astype(np.uint8))
 
     return raw_crops_dir

@@ -118,8 +118,9 @@ function measureChannel(channel_name, channel_file, roi_files, roi_folder, prepr
         roundness = getResult("Round", row);
         solidity = getResult("Solidity", row);
 
-        // Build CSV row
-        cell_id = i + 1;
+        // Build CSV row. Take cell_id from the ROI filename (cell_0012.tif -> 12)
+        // so it always matches the crop filenames, regardless of sort order.
+        cell_id = parseInt(replace(replace(roi_files[i], "cell_", ""), ".tif", ""));
         output = output + cell_id + "," + area + "," + mean + "," + median + "," + std + "," + min + "," + max + ",";
         output = output + x + "," + y + "," + circ + "," + intden + "," + rawintden + ",";
         output = output + ar + "," + roundness + "," + solidity + "\n";
