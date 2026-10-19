@@ -92,7 +92,7 @@ def plot_all_intensity_histograms(base_path, csv_file=None, output_file=None, ve
     channels = [
         ('actin_mean', 'Actin-FITC', 'green'),
         ('cd4_mean', 'CD4-PerCP', 'blue'),
-        (['cd45ra_mean'], 'CD45RA-PacBlue', 'purple'),
+        ('cd45ra_mean', 'CD45RA-PacBlue', 'purple'),
         # ('cd19car_mean', 'CD19CAR-AF647', 'red'),
         ('ccr7_mean', 'CCR7-PE', 'orange')
     ]
