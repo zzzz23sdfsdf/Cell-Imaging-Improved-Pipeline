@@ -348,7 +348,7 @@ def extract_channel_measurements(sample_folder, image_number, base_path, channel
         channel_config = {
             'actin': 'Actin-FITC.tif',
             'cd4': 'CD4-PerCP.tif',
-            'cd45ra': 'CD45RA-PacBlue.tif'
+            'cd45ra': 'CD45RA-PacBlue.tif',
             'cd19car': 'CD19CAR-AF647.tif',
             'ccr7': 'CCR7-PE.tif',
         }
