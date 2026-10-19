@@ -381,8 +381,8 @@ def extract_channel_measurements(sample_folder, image_number, base_path, channel
         'cd4File = "CD4_FILE_PLACEHOLDER";',
         f'cd4File = "{channel_config.get("cd4", "CD4-PerCP.tif")}";'
     ).replace(
-        'cd45raSparkVioletFile = "CD45RA_SPARKVIOLET_FILE_PLACEHOLDER";',
-        f'cd45raSparkVioletFile = "{channel_config.get("cd45ra", "CD45RA-PacBlue.tif")}";'
+        'cd45raFile = "CD45RA_FILE_PLACEHOLDER";',
+        f'cd45raFile = "{channel_config.get("cd45ra", "CD45RA-PacBlue.tif")}";'
     ).replace(
         'ccr7File = "CCR7_FILE_PLACEHOLDER";',
         f'ccr7File = "{channel_config.get("ccr7", "CCR7-PE.tif")}";'
@@ -397,7 +397,7 @@ def extract_channel_measurements(sample_folder, image_number, base_path, channel
     num_rois = len(list(roi_dir.glob("*.tif"))) if roi_dir.exists() else 0
 
     # Count channels
-    channels = ['actin-fitc', 'cd4-percp', 'cd45ra-af647', 'ccr7-pe']
+    channels = ['actin-fitc', 'cd4-percp', 'cd45ra-pacblue', 'ccr7-pe']
     channel_files = []
     for ch in channels:
         ch_path = base_dir / f"{ch}.tif"

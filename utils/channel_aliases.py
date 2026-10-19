@@ -3,9 +3,8 @@
 Channel alias utilities.
 
 These helpers normalize user-specified channel keys so the rest of the
-pipeline can rely on a consistent set of canonical names. This prevents
-errors when someone renames the config key (e.g., using "cd45ra_PacBlue"
-instead of the expected "cd45ra_sparkviolet").
+pipeline can rely on a consistent set of canonical names. Channel keys are
+currently used as-is (actin, cd4, cd45ra, ccr7), so these are pass-throughs.
 """
 
 import re

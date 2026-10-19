@@ -34,12 +34,9 @@ except ImportError:
 # Manual thresholds - Edit these values based on your data
 THRESHOLDS = {
     'cd4': 260,      # CD4-PerCP
-    'cd45ra': 120,   # CD45RA (uses SparkViolet channel; plots label it as PacBlue)
+    'cd45ra': 120,   # CD45RA-PacBlue
     'ccr7': 114,     # CCR7-PE
 }
-
-# Which CD45RA channel to use? Options: 'af647', 'sparkviolet', 'average', 'max'
-CD45RA_CHANNEL_MODE = 'average'
 
 # CSV filename
 INPUT_CSV = "all_samples_combined.csv"
@@ -49,74 +46,6 @@ OUTPUT_CSV = "all_samples_combined_classified.csv"
 # ============================================================================
 # HELPER FUNCTIONS
 # ============================================================================
-
-def get_cd45ra_value(row, mode='average'):
-    """Get CD45RA value based on mode (average, max, af647, or sparkviolet)"""
-
-    # Check which CD45RA channels exist
-    has_af647_median = 'cd45ra_af647_median' in row.index
-    has_af647_mean = 'cd45ra_af647_mean' in row.index
-    has_sparkviolet_median = 'cd45ra_sparkviolet_median' in row.index
-    has_sparkviolet_mean = 'cd45ra_sparkviolet_mean' in row.index
-
-    # Get available values (prefer median, fallback to mean)
-    af647_val = None
-    sparkviolet_val = None
-
-    if has_af647_median:
-        af647_val = row['cd45ra_af647_median']
-    elif has_af647_mean:
-        af647_val = row['cd45ra_af647_mean']
-
-    if has_sparkviolet_median:
-        sparkviolet_val = row['cd45ra_sparkviolet_median']
-    elif has_sparkviolet_mean:
-        sparkviolet_val = row['cd45ra_sparkviolet_mean']
-
-    # Handle different modes
-    if mode == 'af647':
-        if af647_val is not None:
-            return af647_val
-        elif sparkviolet_val is not None:
-            return sparkviolet_val  # Fallback
-        else:
-            return 0
-    elif mode == 'sparkviolet':
-        if sparkviolet_val is not None:
-            return sparkviolet_val
-        elif af647_val is not None:
-            return af647_val  # Fallback
-        else:
-            return 0
-    elif mode == 'average':
-        if af647_val is not None and sparkviolet_val is not None:
-            return (af647_val + sparkviolet_val) / 2
-        elif sparkviolet_val is not None:
-            return sparkviolet_val
-        elif af647_val is not None:
-            return af647_val
-        else:
-            return 0
-    elif mode == 'max':
-        if af647_val is not None and sparkviolet_val is not None:
-            return max(af647_val, sparkviolet_val)
-        elif sparkviolet_val is not None:
-            return sparkviolet_val
-        elif af647_val is not None:
-            return af647_val
-        else:
-            return 0
-    else:
-        # Default to average mode
-        if af647_val is not None and sparkviolet_val is not None:
-            return (af647_val + sparkviolet_val) / 2
-        elif sparkviolet_val is not None:
-            return sparkviolet_val
-        elif af647_val is not None:
-            return af647_val
-        else:
-            return 0
-
 
 def classify_cell(row, thresholds):
     """
