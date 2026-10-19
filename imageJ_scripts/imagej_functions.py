@@ -348,8 +348,7 @@ def extract_channel_measurements(sample_folder, image_number, base_path, channel
         channel_config = {
             'actin': 'Actin-FITC.tif',
             'cd4': 'CD4-PerCP.tif',
-            'cd45ra_sparkviolet': 'CD45RA-SparkViolet.tif',
-            'cd45ra_PacBlue': 'CD45RA-PacBlue.tif',
+            'cd45ra': 'CD45RA-PacBlue.tif'
             'cd19car': 'CD19CAR-AF647.tif',
             'ccr7': 'CCR7-PE.tif',
         }
@@ -384,7 +383,7 @@ def extract_channel_measurements(sample_folder, image_number, base_path, channel
         f'cd4File = "{channel_config.get("cd4", "CD4-PerCP.tif")}";'
     ).replace(
         'cd45raSparkVioletFile = "CD45RA_SPARKVIOLET_FILE_PLACEHOLDER";',
-        f'cd45raSparkVioletFile = "{channel_config.get("cd45ra_sparkviolet", channel_config.get("cd45ra_PacBlue", "CD45RA-SparkViolet.tif"))}";'
+        f'cd45raSparkVioletFile = "{channel_config.get("cd45ra", "CD45RA-PacBlue.tif")}";'
     ).replace(
         'cd19carFile = "CD19CAR_FILE_PLACEHOLDER";',
         f'cd19carFile = "{channel_config.get("cd19car", "CD19CAR-AF647.tif")}";'
