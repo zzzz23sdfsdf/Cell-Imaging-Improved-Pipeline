@@ -42,10 +42,8 @@ SAMPLES_TO_PROCESS = [1, 2, 3]  # or [1] for just sample1
 CHANNEL_CONFIG = {
     'actin': 'Actin-FITC.tif',           # Change to your actual filenames
     'cd4': 'CD4-PerCP.tif',
-    'cd45ra_af647': 'CD45RA-AF647.tif',
-    'cd45ra_sparkviolet': 'CD45RA-SparkViolet.tif',  # plots label this as "PacBlue"
-    'cd19car': 'CD19CAR-AF647.tif',
-    'ccr7': 'CCR7-PE.tif',
+    'cd45ra': 'CD45RA-PacBlue.tif', 
+    'ccr7': 'CCR7-AF594.tif',
 }
 ```
 
@@ -70,7 +68,7 @@ BASE_PATH/
 │   ├── 1/
 │   │   ├── Actin-FITC.tif
 │   │   ├── CD4-PerCP.tif
-│   │   ├── CD45RA-AF647.tif
+│   │   ├── CD45RA-PacBlue.tif
 │   │   └── ... (other channel files)
 │   ├── 2/
 │   └── 3/
@@ -84,7 +82,7 @@ BASE_PATH/
 
 **Important Notes:**
 - Sample folders MUST start with "sample" (e.g., sample1, sample2, sample3)
-- Image folders can be ANY name (1, 2, 3, 44, 1[CAR], etc.)
+- Image folders can be ANY name (1, 2, 3, 44, etc.)
 - Each image folder should contain your channel TIF files
 
 ## Configuration Options
