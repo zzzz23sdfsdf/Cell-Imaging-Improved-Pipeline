@@ -97,7 +97,7 @@ def combine_measurements(sample_folder, image_number, base_path, channel_config=
             'CD4-PerCP-measurements.csv',
             'cd4_measurements.csv',
         ],
-        'cd45ra_PacBlue': [
+        'cd45ra': [
             'cd45ra-pacblue-measurements.csv',
             'car-cd45ra-pacblue-measurements.csv',
             'CD45RA-PacBlue-measurements.csv',
