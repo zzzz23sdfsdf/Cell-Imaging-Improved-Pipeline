@@ -93,7 +93,6 @@ def plot_all_intensity_histograms(base_path, csv_file=None, output_file=None, ve
         ('actin_mean', 'Actin-FITC', 'green'),
         ('cd4_mean', 'CD4-PerCP', 'blue'),
         ('cd45ra_mean', 'CD45RA-PacBlue', 'purple'),
-        # ('cd19car_mean', 'CD19CAR-AF647', 'red'),
         ('ccr7_mean', 'CCR7-PE', 'orange')
     ]
 
@@ -163,7 +162,8 @@ def plot_all_intensity_histograms(base_path, csv_file=None, output_file=None, ve
             print(f"  {channel_name}: n={n_cells}, mean={mean_val:.1f}, std={std_val:.1f}, median={median_val:.1f}")
 
     # Hide the extra subplot (we have 5 channels in a 2x3 grid)
-    axes[5].set_visible(False)
+    for ax in axes[len(channels):]:
+        ax.set_visible(False)
 
     plt.suptitle(f'All Samples Combined - Total Intensity Distributions (n={len(df)} cells)',
                  fontsize=16, fontweight='bold', y=0.995)
