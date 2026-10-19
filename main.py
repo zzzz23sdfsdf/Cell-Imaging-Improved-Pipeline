@@ -61,7 +61,7 @@ NUM_CELLS_TO_COMPARE = 5  # Number of cells per image to compare
 CHANNEL_CONFIG = {
     'actin': 'Actin-FITC.tif',
     'cd4': 'CD4-PerCP.tif',
-    'cd45ra_PacBlue': 'CD45RA-PacBlue.tif',
+    'cd45ra': 'CD45RA-PacBlue.tif',
     # 'cd45ra_sparkviolet': 'CD45RA-SparkViolet.tif',
     'cd19car': 'CD19CAR-AF647.tif',
     'ccr7': 'CCR7-AF594.tif',
