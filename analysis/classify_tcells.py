@@ -36,7 +36,6 @@ THRESHOLDS = {
     'cd4': 260,      # CD4-PerCP
     'cd45ra': 120,   # CD45RA (uses SparkViolet channel; plots label it as PacBlue)
     'ccr7': 114,     # CCR7-PE
-    # 'cd19car': 430,  # CD19CAR-AF647
 }
 
 # Which CD45RA channel to use? Options: 'af647', 'sparkviolet', 'average', 'max'
@@ -140,10 +139,6 @@ def classify_cell(row, thresholds):
     is_cd4_pos = cd4 > thresholds['cd4']
     is_cd45ra_pos = cd45ra > thresholds['cd45ra']
     is_ccr7_pos = ccr7 > thresholds['ccr7']
-    car_threshold = thresholds.get('cd19car')
-    is_car_pos = bool(
-        cd19car is not None and car_threshold is not None and cd19car > car_threshold
-    )
 
     # Determine memory subset based on CD45RA and CCR7
     if is_cd45ra_pos and is_ccr7_pos:
@@ -157,14 +152,8 @@ def classify_cell(row, thresholds):
     else:
         memory_subset = "Unclassified"
 
-    # Classification - CAR-T cells take priority
-    if is_car_pos:
-        cell_type = "CAR-T"
-        if is_cd4_pos:
-            subset = f"CAR-T CD4+ {memory_subset}"
-        else:
-            subset = f"CAR-T CD8+ {memory_subset}"
-    elif not is_cd4_pos:
+    # Lineage: CD4-negative cells are designated CD8+
+    if not is_cd4_pos:
         cell_type = "CD8+"
         subset = f"CD8+ {memory_subset}"
     else:
@@ -175,7 +164,6 @@ def classify_cell(row, thresholds):
         'cd4_positive': is_cd4_pos,
         'cd45ra_positive': is_cd45ra_pos,
         'ccr7_positive': is_ccr7_pos,
-        'car_positive': is_car_pos,
         'cell_type': cell_type,
         'tcell_subset': subset
     }
@@ -200,7 +188,6 @@ def classify_tcells(base_path, input_csv=None, output_csv=None, verbose=True):
             - 'success': Boolean
             - 'output_csv': Path to output file
             - 'num_cells': Total cells
-            - 'num_car_pos': Number of CAR-T cells
             - 'num_cd4_pos': Number of CD4+ cells
             - 'num_cd8_pos': Number of CD8+ cells
             - 'subset_counts': Dict of subset counts
@@ -250,7 +237,6 @@ def classify_tcells(base_path, input_csv=None, output_csv=None, verbose=True):
     df['cd4_positive'] = [c['cd4_positive'] for c in classifications]
     df['cd45ra_positive'] = [c['cd45ra_positive'] for c in classifications]
     df['ccr7_positive'] = [c['ccr7_positive'] for c in classifications]
-    df['car_positive'] = [c['car_positive'] for c in classifications]
     df['cell_type'] = [c['cell_type'] for c in classifications]
     df['tcell_subset'] = [c['tcell_subset'] for c in classifications]
 
@@ -265,7 +251,7 @@ def classify_tcells(base_path, input_csv=None, output_csv=None, verbose=True):
         print("="*60)
         print(f"Total cells: {len(df)}")
         print("\nLineage distribution:")
-        for lineage in ["CAR-T", "CD4+", "CD8+"]:
+        for lineage in ["CD4+", "CD8+"]:
             count = int(lineage_counts.get(lineage, 0))
             pct = count / len(df) * 100 if len(df) else 0
             print(f"  {lineage}: {count} ({pct:.1f}%)")
@@ -276,8 +262,6 @@ def classify_tcells(base_path, input_csv=None, output_csv=None, verbose=True):
             ("CD45RA", df['cd45ra_positive']),
             ("CCR7", df['ccr7_positive']),
         ]
-        if thresholds.get('cd19car') is not None:
-            channel_positive_series.append(("CD19CAR", df['car_positive']))
 
         for label, series in channel_positive_series:
             count = int(series.sum())
@@ -297,7 +281,6 @@ def classify_tcells(base_path, input_csv=None, output_csv=None, verbose=True):
         print(f"\n✓ Saved classified data to: {output_csv}")
         print("="*60 + "\n")
 
-    num_car_pos = int(lineage_counts.get("CAR-T", 0))
     num_cd4_pos = int(lineage_counts.get("CD4+", 0))
     num_cd8_pos = int(lineage_counts.get("CD8+", 0))
 
@@ -305,7 +288,6 @@ def classify_tcells(base_path, input_csv=None, output_csv=None, verbose=True):
         'success': True,
         'output_csv': str(output_path),
         'num_cells': len(df),
-        'num_car_pos': num_car_pos,
         'num_cd4_pos': num_cd4_pos,
         'num_cd8_pos': num_cd8_pos,
         'subset_counts': subset_counts,

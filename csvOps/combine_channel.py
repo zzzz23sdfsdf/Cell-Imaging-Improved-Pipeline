@@ -105,11 +105,6 @@ def combine_measurements(sample_folder, image_number, base_path, channel_config=
             'car-cd45ra-sparkviolet-measurements.csv',
             'CD45RA-SparkViolet-measurements.csv',
         ],
-        'cd19car': [
-            'cd19car-af647-measurements.csv',
-            'car-cd19car-af647-measurements.csv',
-            'CD19CAR-AF647-measurements.csv',
-        ],
         'ccr7': [
             'ccr7-pe-measurements.csv',
             'car-ccr7-pe-measurements.csv',
