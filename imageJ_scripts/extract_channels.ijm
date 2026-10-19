@@ -14,8 +14,7 @@ dir = basePath + "/" + sampleFolder + "/" + imageNumber + "/";
 // Channel filenames - replaced by Python from CHANNEL_CONFIG
 actinFile = "ACTIN_FILE_PLACEHOLDER";
 cd4File = "CD4_FILE_PLACEHOLDER";
-cd45raAF647File = "CD45RA_AF647_FILE_PLACEHOLDER";
-cd45raSparkVioletFile = "CD45RA_SPARKVIOLET_FILE_PLACEHOLDER";
+cd45raFile = "CD45RA_FILE_PLACEHOLDER";
 ccr7File = "CCR7_FILE_PLACEHOLDER";
 
 
@@ -150,15 +149,13 @@ function measureChannel(channel_name, channel_file, roi_files, roi_folder, prepr
 // Measure each channel (using configured filenames)
 actin_data = measureChannel("Actin-FITC", actinFile, roi_files, roi_folder, "none");
 cd4_data = measureChannel("CD4-PerCP", cd4File, roi_files, roi_folder, "cd4");
-cd45ra_af647_data = measureChannel("CD45RA-AF647", cd45raAF647File, roi_files, roi_folder, "cd45ra");
-cd45ra_sparkviolet_data = measureChannel("CD45RA-SparkViolet", cd45raSparkVioletFile, roi_files, roi_folder, "cd45ra");
+cd45ra_data = measureChannel("CD45RA-PacBlue", cd45raFile, roi_files, roi_folder, "cd45ra");
 ccr7_data = measureChannel("CCR7-PE", ccr7File, roi_files, roi_folder, "ccr7");
 
 // Save each channel's data to a file
 File.saveString(actin_data, dir + "actin-fitc-measurements.csv");
 File.saveString(cd4_data, dir + "cd4-percp-measurements.csv");
-File.saveString(cd45ra_af647_data, dir + "cd45ra-af647-measurements.csv");
-File.saveString(cd45ra_sparkviolet_data, dir + "cd45ra-sparkviolet-measurements.csv");
+File.saveString(cd45ra_data, dir + "cd45ra-pacblue-measurements.csv");
 File.saveString(ccr7_data, dir + "ccr7-pe-measurements.csv");
 
 // Disable batch mode

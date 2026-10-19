@@ -25,16 +25,14 @@ from utils.channel_aliases import canonicalize_channel_config, canonicalize_chan
 
 
 # Optional aliases for channel filenames when multiple naming conventions exist
-CHANNEL_FILENAME_ALIASES = {
-    'cd45ra': ['CD45RA-SparkViolet.tif'],
-}
+CHANNEL_FILENAME_ALIASES = {}
 
 
 def resolve_channel_filenames(channel_config, base_path, sample_folder, image_number, verbose=False):
     """
     Resolve channel filenames to match what actually exists on disk.
 
-    Falls back to known aliases (e.g., SparkViolet) when the configured name
+    Falls back to aliases in CHANNEL_FILENAME_ALIASES when the configured name
     is not found for the current image.
     """
     resolved = channel_config.copy()
@@ -147,9 +145,7 @@ def run_pipeline(sample_folder, image_number, base_path,
         return {'success': False, 'error': "channel_config must be provided by caller", 'results': results}
     channel_config = channel_config.copy()
 
-    # Normalize any aliased channel keys so the rest of the pipeline receives
-    # the canonical names it expects (e.g., map "cd45ra_PacBlue" to
-    # "cd45ra_sparkviolet").
+    # Normalize channel keys (currently a pass-through, see utils/channel_aliases.py)
     channel_config = canonicalize_channel_config(channel_config, verbose=verbose)
     combine_channels = canonicalize_channel_list(combine_channels, verbose=verbose)
     null_channels = canonicalize_channel_list(null_channels, verbose=verbose)

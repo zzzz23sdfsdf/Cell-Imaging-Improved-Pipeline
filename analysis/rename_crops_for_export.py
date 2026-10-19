@@ -8,8 +8,7 @@ Naming format: {experiment_prefix}_sample{N}_image{NN}_cell{NN}_{classification}
 
 Examples:
 - DLBCL114357_20250926_1to10_40min_sample1_image01_cell01_CD4_Naive.tif
-- DLBCL114357_20250926_1to10_40min_sample1_image02_cell03_CAR-T_TEM.tif
-- DLBCL114357_20250926_1to10_40min_sample2_image05_cell10_CD4-negative.tif
+- DLBCL114357_20250926_1to10_40min_sample1_image02_cell03_CD8_TEM.tif
 
 Usage:
     python rename_crops_for_export.py
@@ -76,40 +75,20 @@ def format_cell_classification(cell_type, subset):
     Format cell classification for filename.
 
     Rules:
-    - CD4+ cells: CD4_{subset}
-    - CAR-T cells: CAR-T_{subset} (remove CD4+/CD4- prefix)
-    - CD4- cells: CD4-negative
+    - CD4+ cells: CD4_{subset}, e.g. CD4_Naive, CD4_TCM
+    - CD8+ cells: CD8_{subset}, e.g. CD8_TEM, CD8_TEMRA
 
     Args:
-        cell_type: Cell type (e.g., "CD4+", "CD4-", "CAR-T")
-        subset: Cell subset (e.g., "Naive", "Central Memory (TCM)", "N/A")
+        cell_type: Cell type from classify_tcells ("CD4+" or "CD8+")
+        subset: Cell subset from classify_tcells (e.g., "CD4+ Naive", "CD8+ Central Memory (TCM)")
 
     Returns:
         Formatted classification string
     """
-    # Handle CD4- cells
-    if cell_type == "CD4-":
-        return "CD4-negative"
-
-    # Handle CAR-T cells
-    if cell_type == "CAR-T":
-        # Remove "CAR-T CD4+ " or "CAR-T CD4- " prefix from subset
-        if subset.startswith("CAR-T CD4+ "):
-            subset = subset.replace("CAR-T CD4+ ", "")
-        elif subset.startswith("CAR-T CD4- "):
-            subset = subset.replace("CAR-T CD4- ", "")
-
-        # Extract abbreviation
-        abbrev = extract_abbreviation(subset)
-        return f"CAR-T_{abbrev}"
-
-    # Handle CD4+ cells
-    if cell_type == "CD4+":
-        abbrev = extract_abbreviation(subset)
-        return f"CD4_{abbrev}"
-
-    # Fallback
-    return f"{cell_type}_{subset}".replace(" ", "_")
+    lineage = cell_type.rstrip("+")
+    memory_subset = subset.replace(f"{cell_type} ", "", 1)
+    abbrev = extract_abbreviation(memory_subset)
+    return f"{lineage}_{abbrev}".replace(" ", "_")
 
 
 def rename_crops_for_export(base_path, experiment_prefix=None, input_csv=None,

@@ -8,7 +8,7 @@ columns (area, x, y, etc.) are retained from the first included channel only.
 
 CLI usage examples:
     python combine_channel.py sample2 7 --null-channels ccr7
-    python combine_channel.py sample1 4 --include-channels actin cd4 cd45ra_PacBlue
+    python combine_channel.py sample1 4 --include-channels actin cd4 cd45ra
 """
 
 import argparse
@@ -83,31 +83,24 @@ def combine_measurements(sample_folder, image_number, base_path, channel_config=
     # Build paths
     base_dir = Path(f"{base_path}/{sample_folder}/{image_number}")
 
-    # Define channel patterns to search for (flexible naming, including car- prefix)
+    # Define channel patterns to search for
     channel_patterns = {
         'actin': [
             'actin-fitc-measurements.csv',
-            'car-actin-fitc-measurements.csv',
             'Actin-FITC-measurements.csv',
             'actin_measurements.csv',
         ],
         'cd4': [
             'cd4-percp-measurements.csv',
-            'car-cd4-percp-measurements.csv',
             'CD4-PerCP-measurements.csv',
             'cd4_measurements.csv',
         ],
         'cd45ra': [
             'cd45ra-pacblue-measurements.csv',
-            'car-cd45ra-pacblue-measurements.csv',
             'CD45RA-PacBlue-measurements.csv',
-            'cd45ra-sparkviolet-measurements.csv',
-            'car-cd45ra-sparkviolet-measurements.csv',
-            'CD45RA-SparkViolet-measurements.csv',
         ],
         'ccr7': [
             'ccr7-pe-measurements.csv',
-            'car-ccr7-pe-measurements.csv',
             'CCR7-PE-measurements.csv',
             'ccr7_measurements.csv',
         ],

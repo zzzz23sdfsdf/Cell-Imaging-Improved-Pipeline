@@ -88,7 +88,7 @@ def plot_all_intensity_histograms(base_path, csv_file=None, output_file=None, ve
         print(f"  Total cells: {len(df)}")
         print(f"  Samples: {df['sample'].unique().tolist()}")
 
-    # Define channels to plot (mean intensities), with fallbacks for PacBlue/SparkViolet
+    # Define channels to plot (mean intensities)
     channels = [
         (['actin_mean'], 'Actin-FITC', 'green'),
         (['cd4_mean'], 'CD4-PerCP', 'blue'),

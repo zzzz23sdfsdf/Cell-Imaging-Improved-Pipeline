@@ -62,7 +62,6 @@ CHANNEL_CONFIG = {
     'actin': 'Actin-FITC.tif',
     'cd4': 'CD4-PerCP.tif',
     'cd45ra': 'CD45RA-PacBlue.tif',
-    # 'cd45ra_sparkviolet': 'CD45RA-SparkViolet.tif',
     'ccr7': 'CCR7-AF594.tif',
 }
 
