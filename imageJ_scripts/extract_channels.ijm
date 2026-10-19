@@ -16,7 +16,6 @@ actinFile = "ACTIN_FILE_PLACEHOLDER";
 cd4File = "CD4_FILE_PLACEHOLDER";
 cd45raAF647File = "CD45RA_AF647_FILE_PLACEHOLDER";
 cd45raSparkVioletFile = "CD45RA_SPARKVIOLET_FILE_PLACEHOLDER";
-cd19carFile = "CD19CAR_FILE_PLACEHOLDER";
 ccr7File = "CCR7_FILE_PLACEHOLDER";
 
 
@@ -153,7 +152,6 @@ actin_data = measureChannel("Actin-FITC", actinFile, roi_files, roi_folder, "non
 cd4_data = measureChannel("CD4-PerCP", cd4File, roi_files, roi_folder, "cd4");
 cd45ra_af647_data = measureChannel("CD45RA-AF647", cd45raAF647File, roi_files, roi_folder, "cd45ra");
 cd45ra_sparkviolet_data = measureChannel("CD45RA-SparkViolet", cd45raSparkVioletFile, roi_files, roi_folder, "cd45ra");
-cd19car_data = measureChannel("CD19CAR-AF647", cd19carFile, roi_files, roi_folder, "none");
 ccr7_data = measureChannel("CCR7-PE", ccr7File, roi_files, roi_folder, "ccr7");
 
 // Save each channel's data to a file
@@ -161,7 +159,6 @@ File.saveString(actin_data, dir + "actin-fitc-measurements.csv");
 File.saveString(cd4_data, dir + "cd4-percp-measurements.csv");
 File.saveString(cd45ra_af647_data, dir + "cd45ra-af647-measurements.csv");
 File.saveString(cd45ra_sparkviolet_data, dir + "cd45ra-sparkviolet-measurements.csv");
-File.saveString(cd19car_data, dir + "cd19car-af647-measurements.csv");
 File.saveString(ccr7_data, dir + "ccr7-pe-measurements.csv");
 
 // Disable batch mode
