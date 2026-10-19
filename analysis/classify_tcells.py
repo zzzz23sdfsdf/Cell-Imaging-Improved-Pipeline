@@ -133,7 +133,7 @@ def classify_cell(row, thresholds):
     """
     # Get marker values (prefer median, fallback to mean)
     cd4 = row['cd4_median'] if 'cd4_median' in row.index else row['cd4_mean']
-    cd45ra = get_cd45ra_value(row, CD45RA_CHANNEL_MODE)
+    cd45ra = row['cd45ra_median'] if 'cd45ra_median' in row.index else row['cd45ra_mean']
     ccr7 = row['ccr7_median'] if 'ccr7_median' in row.index else row['ccr7_mean']
     if 'cd19car_median' in row.index:
         cd19car = row['cd19car_median']
