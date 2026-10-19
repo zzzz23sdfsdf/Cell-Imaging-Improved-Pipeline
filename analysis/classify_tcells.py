@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """
 T Cell Classification
-Classifies T cells into subsets based on CD4, CD45RA, CCR7, and CD19CAR expression
+Classifies T cells into subsets based on CD4, CD45RA, and CCR7 expression
 
 Classification:
-- CAR-T cells: CD19CAR positive (takes priority)
 - CD4+ T cells: CD4 positive
   - Naive: CD45RA+ CCR7+
   - Central Memory (TCM): CD45RA- CCR7+
@@ -135,12 +134,7 @@ def classify_cell(row, thresholds):
     cd4 = row['cd4_median'] if 'cd4_median' in row.index else row['cd4_mean']
     cd45ra = row['cd45ra_median'] if 'cd45ra_median' in row.index else row['cd45ra_mean']
     ccr7 = row['ccr7_median'] if 'ccr7_median' in row.index else row['ccr7_mean']
-    if 'cd19car_median' in row.index:
-        cd19car = row['cd19car_median']
-    elif 'cd19car_mean' in row.index:
-        cd19car = row['cd19car_mean']
-    else:
-        cd19car = None
+    
 
     # Determine positivity
     is_cd4_pos = cd4 > thresholds['cd4']
