@@ -47,7 +47,7 @@ class ChannelConfig:
 CHANNELS = {
     'actin': ChannelConfig("actin_mean", "Actin-FITC", "green"),
     'cd4': ChannelConfig("cd4_mean", "CD4-PerCP", "blue"),
-    'pacblue': ChannelConfig("cd45ra_sparkviolet_mean", "CD45RA-PacBlue", "purple"),
+    'pacblue': ChannelConfig("cd45ra_mean", "CD45RA-PacBlue", "purple"),
     'pe': ChannelConfig("ccr7_mean", "CCR7-PE", "orange"),
 }
 
