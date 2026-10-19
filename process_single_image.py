@@ -26,8 +26,7 @@ from utils.channel_aliases import canonicalize_channel_config, canonicalize_chan
 
 # Optional aliases for channel filenames when multiple naming conventions exist
 CHANNEL_FILENAME_ALIASES = {
-    'cd45ra_sparkviolet': ['CD45RA-PacBlue.tif'],
-    'cd45ra_PacBlue': ['CD45RA-SparkViolet.tif'],
+    'cd45ra': ['CD45RA-SparkViolet.tif'],
 }
 
 
