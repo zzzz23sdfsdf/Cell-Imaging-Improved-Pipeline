@@ -44,7 +44,7 @@ OUTPUT_MODEL = "gmm_cluster_model.pkl"
 
 # Cofactors for asinh transformation (channel-specific)
 COFACTORS = {
-    'cd45ra_sparkviolet_mean': 300,  # PacBlue
+    'cd45ra_mean': 300,  # PacBlue
     'ccr7_mean': 150,  # PE
     'cd4_mean': 300,  # PerCP
     'actin_mean': 150  # FITC
@@ -82,7 +82,7 @@ def annotate_cluster_to_subset(df, cluster_col='cluster'):
         Dictionary mapping cluster ID to subset name
     """
     # Use the correct column names for asinh-transformed data
-    cd45ra_asinh_col = 'cd45ra_sparkviolet_asinh'
+    cd45ra_asinh_col = 'cd45ra_asinh'
     ccr7_asinh_col = 'ccr7_asinh'
 
     # Compute median marker levels per cluster
@@ -160,7 +160,7 @@ def plot_cd45ra_ccr7_analysis(base_path, csv_file=None, n_clusters=4, verbose=Tr
         return {'success': False, 'error': 'No data found in CSV'}
 
     # Define required columns
-    required_cols = ['cd45ra_sparkviolet_mean', 'ccr7_mean', 'cd4_mean', 'actin_mean']
+    required_cols = ['cd45ra_mean', 'ccr7_mean', 'cd4_mean', 'actin_mean']
 
     # Check for required columns
     missing_cols = [col for col in required_cols if col not in df.columns]
@@ -287,7 +287,7 @@ def plot_cd45ra_ccr7_analysis(base_path, csv_file=None, n_clusters=4, verbose=Tr
         subset_name = cluster_to_subset[cluster_id]
         color = subset_colors.get(subset_name, 'gray')
 
-        ax1.scatter(cluster_data['cd45ra_sparkviolet_asinh'], cluster_data['ccr7_asinh'],
+        ax1.scatter(cluster_data['cd45ra_asinh'], cluster_data['ccr7_asinh'],
                    c=color, alpha=0.4, s=10, edgecolors='none',
                    label=f'Cluster {cluster_id} ({subset_name})')
 
@@ -304,7 +304,7 @@ def plot_cd45ra_ccr7_analysis(base_path, csv_file=None, n_clusters=4, verbose=Tr
         subset_data = df_clean[df_clean['subset'] == subset]
         if len(subset_data) > 0:
             color = subset_colors[subset]
-            ax2.scatter(subset_data['cd45ra_sparkviolet_asinh'], subset_data['ccr7_asinh'],
+            ax2.scatter(subset_data['cd45ra_asinh'], subset_data['ccr7_asinh'],
                        c=color, alpha=0.4, s=10, edgecolors='none',
                        label=f'{subset} ({len(subset_data)} cells)')
 
@@ -335,7 +335,7 @@ def plot_cd45ra_ccr7_analysis(base_path, csv_file=None, n_clusters=4, verbose=Tr
     from scipy.stats import gaussian_kde
 
     markers_info = [
-        ('cd45ra_sparkviolet_mean', 'CD45RA-PacBlue', 'purple'),
+        ('cd45ra_mean', 'CD45RA-PacBlue', 'purple'),
         ('ccr7_mean', 'CCR7-PE', 'orange'),
         ('cd4_mean', 'CD4-PerCP', 'blue'),
         ('actin_mean', 'Actin-FITC', 'green')
